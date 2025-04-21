@@ -1,6 +1,6 @@
 #!/bin/sh
 
-src="$HOME/bin/mcaddon"
+src="$PREFIX/bin/mcaddon"
 
 ms_usage () {
 	echo "opcao invalido: $1"
