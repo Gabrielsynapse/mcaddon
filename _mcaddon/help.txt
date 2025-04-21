@@ -1,0 +1,24 @@
+options
+	-init	cria a estrutura inicial do recurso
+	use:
+		crie a raiz do recurso e navege ate ela
+		para um pack completo execute:
+			mcaddon -init .
+		para um pack somente de comportamento execute:
+			mcaddon -init . -bp
+		para um pack somente de recursos execute:
+			mcaddon -init . -rp
+
+	-build	compacta os recursos em um mcaddon
+	use:
+		navege ate a raiz do pack e passe '.' para source
+		ou passe o caminho para source
+		execute:
+			mcaddon -build [source] [nomedopack]
+
+	-start	essa opcao deve instalar o pack especificado no args
+	use:
+		mcaddon -start ./caminho/arq.*
+	--help	mostra um helper na saida
+	
+	--version	mostra a versao do comando

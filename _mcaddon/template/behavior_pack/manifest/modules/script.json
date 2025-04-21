@@ -1,0 +1,7 @@
+{
+	"type":"script",
+	"uuid":"%project.script.uuid1",
+	"version":[0,0,1],
+	"entry":"scripts/%project.script.src",
+	"language":"javascript"
+}
