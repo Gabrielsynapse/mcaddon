@@ -1,15 +1,20 @@
 import Project
 import Util
 from sys import argv
+from os import path
 
 name = argv[1]
 opt  = argv[3]
 
-build = {
-	"name":name,
-	"version":[0,0,1],
-	"sources":[]
-}
+build = dict()
+if path.exists("build.json"):
+	build = Util.readjson("build.json")
+else:
+	build = {
+		"name":name,
+		"version":[0,0,1],
+		"sources":[]
+	}
 if opt == "-bp":
 	build["sources"].append({"identifier":"behavior_pack-manifest","src":f"{name}_behavior_pack/manifest.json"})
 	Project.behavior_pack.init(name)

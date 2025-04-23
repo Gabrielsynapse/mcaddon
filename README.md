@@ -75,6 +75,33 @@ Para instalar um pacote execute:
 mcaddon -start ./caminho/myaddon.mcaddon
 ```
 
+#### `-rem`
+Deve remover um recurso ao pacote
+
+**Uso** `mcaddon -rem <type_pack> <option> [args...]`
+
+**Parâmetros:**
+* `<type_pack>`: tipo do pacote -bp ou -rp
+* `<option>`: opcao de qual tipo de recurso deve remover
+* `[args...]`: argumentos para option
+
+**Exemplos:**
+
+para remover dependência do behavior_pack ou resource_pack no index 0 execute:
+```
+mcaddon -rem [-bp | -rp] -dependency 0
+```
+
+para remover todas as dependências do behavior_pack ou resource_pack execute:
+```
+mcaddon -rem [-bp | -rp] -dependency all
+```
+
+para remover o ultimo index do behavior_pack ou resource_pack execute:
+```
+mcaddon -rem [-bp | -rp] -dependency pop
+```
+
 #### `-add`
 Deve adicionar um recurso ao pacote
 
