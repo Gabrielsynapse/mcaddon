@@ -1,6 +1,6 @@
 #!/bin/sh
 
-src="$PREFIX/bin/mcaddon"
+src="$HOME/bin/mcaddon"
 
 ms_usage () {
 	echo "opcao invalido: $1"
@@ -25,6 +25,15 @@ ms_mkdir (){
 	mkdir -p "$1"
 }
 
+add () {
+	# se nao existir o arquivo project.json no diretorio atual:
+	if [ ! -f "./build.json" ]; then
+		error " va ate o projeto ou crie no diretorio atual"
+		exit
+	fi
+	
+	python "$src/_mcaddon/add.py" $@
+}
 init () {
 	# se o source nao for diretorio:
 	if [ ! -d "$1" ]; then
@@ -34,16 +43,8 @@ init () {
 	fi
 	cd "$1"
 	name=$( python -c "src='$PWD';print(src[src.rindex('/')+1:].replace('/',''))" )
-	#montando o behavior_pack
-	#diretorios
-	ms_mkdir $name"_behavior_pack/entities"
-	ms_mkdir $name"_behavior_pack/functions"
-	ms_mkdir $name"_behavior_pack/items"
-	ms_mkdir $name"_behavior_pack/recipes"
-	ms_mkdir $name"_behavior_pack/scripts"
-	
-	#manifest
-	python "$src/_mcaddon/create_manifest.py" $name"_behavior_pack/manifest.json" "$src" "$2"
+
+	python "$src/_mcaddon/make-addon.py" "$name" "$src" "$2"
 }
 build () {
 	name="$2.mcaddon"
@@ -75,6 +76,9 @@ elif [ "$1" = "-init" ] && [ ! -z "$2" ]; then
 	init "$2" "$3"
 elif [ "$1" = "-build" ] && [ ! -z "$2" ] && [ ! -z "$3" ]; then
 	build "$2" "$3"
+elif [ "$1" = "-add" ] && [ ! -z "$2" ] && [ ! -z "$3" ] && [ ! -z "$4" ]; then
+	shift
+	add $@
 elif [ "$1" = "--help" ]; then
 	ms_help
 elif [ "$1" = "--version" ]; then

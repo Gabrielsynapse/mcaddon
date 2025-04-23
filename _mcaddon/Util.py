@@ -1,0 +1,46 @@
+from os import makedirs,path
+from json import dumps,loads,decoder
+
+class listdict:
+	def get(_l,_k,_s):
+		for i in _l:
+			if _s == i[_k]:
+				return i
+		return dict()
+
+def info(m):
+	print(f"\033[1;49;32m[\033[34minfo\033[32m] {m}\033[m")
+
+def error(m):
+	print(f"\033[1;49;32m[\033[91merror\033[32m] {m}\033[m")
+	exit()
+
+def mkdir(src):
+	info("criando diretorio '{}' ".format(src))
+	makedirs(src,exist_ok=True)
+
+def writefile(src,string):
+	info("escrevendo arquivo '{}'".format(src))
+	arq = open(src,"w")
+	arq.write(string)
+	arq.close()
+
+def writejson(src,_json):
+	writefile(src,dumps(_json,sort_keys=False,indent=4))
+
+def readfile(src):
+	#se o arquivo nao existe:
+	if not path.exists(src):
+		error("Util.readfile: nao pode ler arquivo '{}'".format(src))
+
+	info("Util.readfile: lendo arquivo '{}'".format(src))
+	arq = open(src,"r")
+	txt = arq.read()
+	arq.close()
+	return txt
+
+def readjson(src):
+	try:
+		return loads(readfile(src))
+	except decoder.JSONDecodeError:
+		error("Util.readjson: arquivo '{}' nao existe ou nao e um formato json".format(src))
