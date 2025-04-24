@@ -58,7 +58,7 @@ Compacta os recursos em um mcaddon
 Para compactar recursos no diretorio atual execute:
 ```
 cd myaddon/
-mcaddon . myaddon
+mcaddon -build . myaddon
 ```
 
 #### `-start`
@@ -114,14 +114,20 @@ Deve adicionar um recurso ao pacote
 
 **Exemplos:**
 
-para adicionar recurso de dependência em behavior_pack execute:
+para adicionar recurso de dependência para behavior_pack ou resource_pack em behavior_pack ou resource_pack execute:
 ```
-mcaddon -add -bp -dependency [rp | bp] uuid4
+mcaddon -add [-rp | -bp] -dependency [rp | bp] uuid4
 ```
 
-para adicionar recurso de dependência em resource_pack execute:
+para adicionar dependência de modulo para api script execute:
 ```
-mcaddon -add -rp -dependency [rp | bp] uuid4
+mcaddon -add -bp -dependency [server | server-ui | common]
+```
+isso tambem abilita "capabilities" para fazer operações avancadas com scripts
+
+para adicionar um modulo de javascript com o nome name execute:
+```
+mcaddon -add -bp -module -javascript name
 ```
 
 #### `--help`

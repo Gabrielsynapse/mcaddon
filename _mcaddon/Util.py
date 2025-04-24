@@ -12,7 +12,7 @@ def info(m):
 	print(f"\033[1;49;32m[\033[34minfo\033[32m] {m}\033[m")
 
 def error(m):
-	print(f"\033[1;49;32m[\033[91merror\033[32m] {m}\033[m")
+	print(f"\033[1;49;32m[\033[91merror\033[32m]\033[91m {m}\033[m")
 	exit()
 
 def mkdir(src):

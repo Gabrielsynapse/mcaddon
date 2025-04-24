@@ -24,11 +24,18 @@ ms_mkdir (){
 	info "criando diretorio \"$1\""
 	mkdir -p "$1"
 }
-
-add () {
-	# se nao existir o arquivo project.json no diretorio atual:
+rem () {
+	# se nao existir o arquivo build.json no diretorio atual:
 	if [ ! -f "./build.json" ]; then
-		error " va ate o projeto ou crie no diretorio atual"
+		error "va ate o projeto ou crie no diretorio atual"
+		exit
+	fi
+	python "$src/_mcaddon/rem.py" $@
+}
+add () {
+	# se nao existir o arquivo build.json no diretorio atual:
+	if [ ! -f "./build.json" ]; then
+		error "va ate o projeto ou crie no diretorio atual"
 		exit
 	fi
 	
@@ -56,7 +63,7 @@ build () {
 		exit
 	fi
 	cd "$1"
-	zip -r "$name" *
+	zip -r "$name" *_behavior_pack *_resource_pack
 	info "pack \"$name\" criado com sucesso!"
 }
 install () {
@@ -76,6 +83,9 @@ elif [ "$1" = "-init" ] && [ ! -z "$2" ]; then
 	init "$2" "$3"
 elif [ "$1" = "-build" ] && [ ! -z "$2" ] && [ ! -z "$3" ]; then
 	build "$2" "$3"
+elif [ "$1" = "-rem" ] && [ ! -z "$2" ] && [ ! -z "$3" ] && [ ! -z "$4" ]; then
+	shift
+	rem $@
 elif [ "$1" = "-add" ] && [ ! -z "$2" ] && [ ! -z "$3" ] && [ ! -z "$4" ]; then
 	shift
 	add $@
