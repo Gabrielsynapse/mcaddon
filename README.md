@@ -130,6 +130,23 @@ para adicionar um modulo de javascript com o nome name execute:
 mcaddon -add -bp -module -javascript name
 ```
 
+#### `-template`
+Cria um template que é uma estrutura de exemplo
+
+**Uso:** `mcaddon -template <name_template> <source> <name>`
+
+**Parâmetros:**
+* `<name_template>`: nome do template
+* `<source>`: caminho do projeto
+* `<nome>`: nome do projeto
+
+**Exemplos:**
+
+para criar um template de api-script no diretorio atual com o nome script execute:
+```
+mcaddon -template api-script . script
+```
+
 #### `--help`
 Mostra um helper na saida
 

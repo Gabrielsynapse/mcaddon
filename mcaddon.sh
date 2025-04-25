@@ -1,6 +1,9 @@
 #!/bin/sh
 
 src="$HOME/bin/mcaddon"
+python () {
+	$src/_mcaddon/_pyenv/bin/python $@
+}
 
 ms_usage () {
 	echo "opcao invalido: $1"
@@ -44,7 +47,7 @@ add () {
 init () {
 	# se o source nao for diretorio:
 	if [ ! -d "$1" ]; then
-		error "o source \"$1\" nao e um diretorio ou nao existe em \"$PWD\""
+		error "o source \"$1\" nao e um diretorio ou nao existe"
 		ms_usage "$1"
 		exit
 	fi
@@ -52,6 +55,25 @@ init () {
 	name=$( python -c "src='$PWD';print(src[src.rindex('/')+1:].replace('/',''))" )
 
 	python "$src/_mcaddon/make-addon.py" "$name" "$src" "$2"
+}
+template () {
+	# se o source nao for diretorio:
+	if [ ! -d "$2" ]; then
+		error "o source \"$2\" nao e um diretorio ou nao existe"
+		ms_usage "$2"
+		exit
+	fi
+	src_template="$src/_mcaddon/template/$1.py"
+	# se o template nao existir:
+	if [ ! -f "$src_template" ]; then
+		error "o template em \"$src_template\" nao existe"
+		ms_usage
+		exit
+	fi
+	name_template="$1"
+	source="$2"
+	name_project="$3"
+	python "$src_template" "$source" "$name_project"
 }
 build () {
 	name="$2.mcaddon"
@@ -79,6 +101,8 @@ install () {
 # mcaddon -start <source.[mcaddon | mcaddon]>
 if [ "$1" = "-start" ] && [ ! -z "$2" ]; then
 	install "$2"
+elif [ "$1" = "-template" ] && [ ! -z "$2" ] && [ ! -z "$3" ] && [ ! -z "$4" ]; then
+	template "$2" "$3" "$4"
 elif [ "$1" = "-init" ] && [ ! -z "$2" ]; then
 	init "$2" "$3"
 elif [ "$1" = "-build" ] && [ ! -z "$2" ] && [ ! -z "$3" ]; then
