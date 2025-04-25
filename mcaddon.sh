@@ -57,6 +57,7 @@ init () {
 	python "$src/_mcaddon/make-addon.py" "$name" "$src" "$2"
 }
 template () {
+	cd "$2"
 	# se o source nao for diretorio:
 	if [ ! -d "$2" ]; then
 		error "o source \"$2\" nao e um diretorio ou nao existe"
