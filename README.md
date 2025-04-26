@@ -147,6 +147,21 @@ para criar um template de api-script no diretorio atual com o nome script execut
 mcaddon -template api-script . script
 ```
 
+#### `-api-test`
+Testa a apt script
+
+**Uso:** `mcaddon -api-test <source>`
+
+**Parâmetros:**
+* `<source>`: caminho relativo ou absoluto ate o addon.mcaddon
+
+**Exemplos:**
+
+para executar um teste do seu addon execute:
+```
+mcaddon -api-test myaddon.mcaddon
+```
+
 #### `--help`
 Mostra um helper na saida
 
