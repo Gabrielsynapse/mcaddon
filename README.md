@@ -11,7 +11,7 @@ cria estruturas e empacota addon para o teste
 ### Dependências
 
 Para que esse comando funcione corretamente, algumas instalações são nescessarias
-* python v3.12.9
+* nodejs v23.11.0
 
 ### opções
 
@@ -159,7 +159,7 @@ Testa a apt script
 
 para executar um teste do seu addon execute:
 ```
-mcaddon -api-test myaddon.mcaddon
+mcaddon -api-test .
 ```
 
 #### `--help`

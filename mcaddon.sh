@@ -21,11 +21,28 @@ error () {
 	echo "[error] $1"
 }
 info () {
-	echo "[info] $1"
+	#echo "[info] $1"
+	echo -e "\033[1;49;32m[\033[34minfo\033[32m] $1\033[m"
+
 }
 ms_mkdir (){
 	info "criando diretorio \"$1\""
 	mkdir -p "$1"
+}
+apitest () {
+	# se nao existir o arquivo:
+	if [ ! -d "$1" ]; then
+		error "source \"$1\" nao existe ou nao e um diretorio"
+	fi
+	source="$1"
+	port="3030"
+	cd "$1"
+	python "$src/_mcaddon/apitest.py" "$source" "$src"
+	info "abrindo o ambiente sair: ctl + d"
+	
+	#xdg-open "http://localhost:$port/"
+	cd "$src/_mcaddon/api-test-temp"
+	node -r ./index.js
 }
 rem () {
 	# se nao existir o arquivo build.json no diretorio atual:
@@ -102,6 +119,8 @@ install () {
 # mcaddon -start <source.[mcaddon | mcaddon]>
 if [ "$1" = "-start" ] && [ ! -z "$2" ]; then
 	install "$2"
+elif [ "$1" = "-api-test" ] && [ ! -z "$2" ]; then
+	apitest "$2"
 elif [ "$1" = "-template" ] && [ ! -z "$2" ] && [ ! -z "$3" ] && [ ! -z "$4" ]; then
 	template "$2" "$3" "$4"
 elif [ "$1" = "-init" ] && [ ! -z "$2" ]; then
